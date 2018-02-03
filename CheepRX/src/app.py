@@ -2,6 +2,9 @@ import requests
 import sys, threading
 from bs4 import BeautifulSoup, SoupStrainer
 import lxml
+import urllib
+import urllib2
+
 
 originalPrice =""
 discountPrice =""
@@ -19,6 +22,7 @@ def crawl_pages():
     global store
     global url
 
+
     url = "https://www.goodrx.com/" + medication + "?drug-name=" + medication
     sourceCode = requests.get(url)
     plainText = sourceCode.text
@@ -28,9 +32,6 @@ def crawl_pages():
     discountPrice = soup.find(class_ ="drug-price")
     store=soup.find(class_ ="store-name")
 
-    print(originalPrice)
-    print(discountPrice)
-    print(store)
         
 
 if __name__ == "__main__":
