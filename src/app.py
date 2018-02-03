@@ -11,7 +11,7 @@ distance =""
 url=""
 
 
-#class crawl_goodrx():    
+#class crawl_goodrx():
 
 def crawl_pages():
     global originalPrice
@@ -22,16 +22,20 @@ def crawl_pages():
     url = "https://www.goodrx.com/" + medication + "?drug-name=" + medication
     sourceCode = requests.get(url)
     plainText = sourceCode.text
-    strainer = SoupStrainer('div', { 'event-id' : 'priceRow'})
+    strainer = SoupStrainer('div', { 'class' : 'pricerow-drugprice'})
     soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)
-    originalPrice = soup.find(class_ ="est-price").string
-    discountPrice = soup.find(class_ ="drug-price")
-    store=soup.find(class_ ="store-name")
+    # originalPrice = soup.find(class_ ="est-price").text
+    # discountPrice = soup.find(class_ ="drug-price").text
+    # store=soup.find(class_ ="store-name").text
 
-    print(originalPrice)
-    print(discountPrice)
-    print(store)
-        
+    #for result in soup.findAll(class_ ="store-name", class_ ="est-price"):
+    for result in soup.findAll(class_ =['store-name', 'drug-price']):
+        print(result.text)
+
+    # print(originalPrice)
+    # print(discountPrice)
+    # print(store)
+
 
 if __name__ == "__main__":
     goodrx = crawl_pages()
