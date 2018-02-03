@@ -23,15 +23,16 @@ def crawl_pages():
     sourceCode = requests.get(url)
     plainText = sourceCode.text
     strainer = SoupStrainer('div', { 'event-id' : 'priceRow'})
-    soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)
-    originalPrice = soup.find(class_ ="est-price").string
-    discountPrice = soup.find(class_ ="drug-price")
-    store=soup.find(class_ ="store-name")
+    soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)    
+    
+    for x in soup.find_all(class_ ="est-price"):
+        print (x.text)
 
+    discountPrice = soup.find_all(class_ ="drug-price")
+    store = soup.find_all(class_ ="store-name")
     print(originalPrice)
     print(discountPrice)
     print(store)
-        
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     goodrx = crawl_pages()
