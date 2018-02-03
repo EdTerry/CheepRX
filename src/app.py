@@ -22,7 +22,7 @@ def crawl_pages():
     url = "https://www.goodrx.com/" + medication + "?drug-name=" + medication
     sourceCode = requests.get(url)
     plainText = sourceCode.text
-    strainer = SoupStrainer('div', { 'event-id' : 'priceRow'})
+    strainer = SoupStrainer('div', { 'class' : 'pricerow-drugprice'})
     soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)
     # originalPrice = soup.find(class_ ="est-price").text
     # discountPrice = soup.find(class_ ="drug-price").text
