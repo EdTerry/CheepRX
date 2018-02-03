@@ -3,10 +3,9 @@ import sys, threading
 from bs4 import BeautifulSoup, SoupStrainer
 import lxml
 
-originalPrice =""
-discountPrice =""
+discountPrice =[]
 medication ="adderall"
-store =""
+store =[]
 distance =""
 url=""
 
@@ -22,15 +21,22 @@ def crawl_pages():
     url = "https://www.goodrx.com/" + medication + "?drug-name=" + medication
     sourceCode = requests.get(url)
     plainText = sourceCode.text
-    strainer = SoupStrainer('div', { 'event-id' : 'priceRow'})
-    soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)
-    originalPrice = soup.find(class_ ="est-price").string
-    discountPrice = soup.find(class_ ="drug-price")
-    store=soup.find(class_ ="store-name")
+    strainer = SoupStrainer('div', {'class': 'store-name '})
+    soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)    
+    strainer2 = SoupStrainer('div', {'class': 'pricerow-drugprice'})
+    soup2 = BeautifulSoup(plainText, "lxml", parse_only=strainer2)    
+    
+    for x in soup.find_all(class_ ='store-name'):
+        store.append(x.text.strip())
+    for x in soup2.find_all(class_ ='drug-price'):
+        discountPrice.append(float(x.text.strip('$')))
+    
+    dict_ = {}
+    for s_name, dPrice in zip(store, discountPrice):
+        dict_[s_name] = dPrice
 
-    print(originalPrice)
-    print(discountPrice)
-    print(store)
-
+    for x in dict_:
+        print ("{} {}".format(x, dict_[x]))
+    
 if __name__ == "__main__":
     goodrx = crawl_pages()
