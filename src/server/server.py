@@ -31,7 +31,6 @@ def crawl_pages():
     print(originalPrice)
     print(discountPrice)
     print(store)
-        
 
 if __name__ == "__main__":
     goodrx = crawl_pages()
