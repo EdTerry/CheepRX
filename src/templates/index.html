@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="CheepRX">
-
+<div></div>
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    
     <title>CheepRx</title>
+    <link rel="shortcut icon" href="../bottle_logo.png">
+    <title><strong>CheepRx</strong></title>
+    <img src="../bottle_logo.png" height="500px" width= "500px"  />
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -23,15 +25,12 @@
         padding-top: 60px;
       }
       @media (min-width: 992px) {
-        body {
-          padding-top: 100px;
-        }
-      }
-
-    </style>
-
+      body {
+        padding-top: 100px;
+      } 
+    }
+   </style>
   </head>
-
   <body ng-controller="HomeCtrl">
 
     <!-- Navigation -->
@@ -66,10 +65,9 @@
           </a>
         </div>-->
         <div class="col-md-5">
-
               <form>
                   <div class="form-group">
-                      <label for="txtDevice" class="control-label">Drug Name:</label>
+                      <label for="txtDevice" class="control-label">Medication Name:</label>
                       <input type="text" class="form-control" ng-model="info.rxName" id="txtRXName" ng-keyup="$event.keyCode == 13 && submitRX()">
                   </div>
               </form>
@@ -122,5 +120,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
   </body>
-
+<footer align = "center">
+  copyright
+    <script type="text/javascript">
+    var d = new Date()
+    document.write(d.getFullYear())
+    </script>  PapasFritas2 
+</footer>
 </html>
