@@ -4,25 +4,24 @@ from bs4 import BeautifulSoup, SoupStrainer
 import lxml
 
 discountPrice =[]
-medication ="adderall"
+medication ="xanax"
 store =[]
 distance =""
-url=""
-Url_goodRx = "https://www.goodrx.com/"
-
-   
+url_idc=""
+url_goodRx = "https://www.goodrx.com/"
 
 def crawl_goodRx():
     global originalPrice
     global discountPrice
     global store
     global url
+    global keys
 
-    url = Url_goodRx + medication + "?drug-name=" + medication
+    url = url_goodRx + medication + "?drug-name=" + medication
     sourceCode = requests.get(url)
     plainText = sourceCode.text
     strainer = SoupStrainer('div', {'class': 'store-name '})
-    name_soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)    
+    name_soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)
     strainer2 = SoupStrainer('div', {'class': 'pricerow-drugprice'})
     number_soup = BeautifulSoup(plainText, "lxml", parse_only=strainer2)    
     
@@ -37,6 +36,15 @@ def crawl_goodRx():
 
     for x in dict_:
         print ("{} {}".format(x, dict_[x]))
+
+def crawl_idc():
+    url_idc = "https://www.internetdrugcoupons.com/" + medication + "-coupon"
+    sourceCode = requests.get(url_idc)
+    plainText = sourceCode.text
+    strainer = SoupStrainer('div', {'class': 'my-coupon'})
+
     
+
 if __name__ == "__main__":
-    goodrx = crawl_goodRx()
+    #goodrx = crawl_goodRx()
+    idc = crawl_idc()
