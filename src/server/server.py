@@ -8,27 +8,28 @@ medication ="adderall"
 store =[]
 distance =""
 url=""
-keys=""
-    
+url_goodRx = "https://www.goodrx.com/"
 
-def crawl_goodrx():
+   
+
+def crawl_goodRx():
     global originalPrice
     global discountPrice
     global store
     global url
     global keys
 
-    url = "https://www.goodrx.com/" + medication + "?drug-name=" + medication
+    url = Url_goodRx + medication + "?drug-name=" + medication
     sourceCode = requests.get(url)
     plainText = sourceCode.text
     strainer = SoupStrainer('div', {'class': 'store-name '})
-    soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)    
+    name_soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)    
     strainer2 = SoupStrainer('div', {'class': 'pricerow-drugprice'})
-    soup2 = BeautifulSoup(plainText, "lxml", parse_only=strainer2)    
+    number_soup = BeautifulSoup(plainText, "lxml", parse_only=strainer2)    
     
-    for x in soup.find_all(class_ ='store-name'):
+    for x in name_soup.find_all(class_ ='store-name'):
         store.append(x.text.strip())
-    for x in soup2.find_all(class_ ='drug-price'):
+    for x in number_soup.find_all(class_ ='drug-price'):
         discountPrice.append(float(x.text.strip('$')))
     
     dict_ = {}
@@ -45,4 +46,4 @@ def crawl_internetdcoupons():
 
     
 if __name__ == "__main__":
-    goodrx = crawl_pages()
+    goodrx = crawl_goodRx()
