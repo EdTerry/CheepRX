@@ -10,7 +10,10 @@ distance =""
 url_idc=""
 url_goodRx = "https://www.goodrx.com/"
 
-def crawl_goodRx():
+def crawl_goodRx(medication):
+
+    print("Calling crawl_goodRx")
+
     global originalPrice
     global discountPrice
     global store
@@ -36,6 +39,7 @@ def crawl_goodRx():
 
     for x in dict_:
         print ("{} {}".format(x, dict_[x]))
+    return dict_
 
 def crawl_idc():
     url_idc = "https://www.internetdrugcoupons.com/" + medication + "-coupon"

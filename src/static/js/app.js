@@ -1,4 +1,4 @@
-angular.module('CheepRX', ['ngRoute'])
+angular.module('CheepRX', ['ngCookies'])
     .controller('HomeCtrl', function($scope, $http, $timeout, $window, $cookies) {
 
     $scope.info = {};
@@ -14,11 +14,8 @@ angular.module('CheepRX', ['ngRoute'])
         $scope.storename = response.data;
         console.log('mm',$scope.storename);
 
-                    console.log("Load complete");
-
-                    $scope.loadComplete = true;
+          console.log("Load complete");
       }, function(error) {
-                    $scope.loadComplete = true;
         console.log(error);
       });
     }
@@ -30,10 +27,10 @@ angular.module('CheepRX', ['ngRoute'])
         url: '/submitRX',
         data: {info:$scope.info}
       }).then(function(response) {
-        $scope.showlist();
-        $('#addPopUp').modal('hide')
+
+        $scope.getCouponList();
         $scope.info = {}
-                    console.log("Added.");
+        console.log("Added.");
       }, function(error) {
         console.log(error);
       });

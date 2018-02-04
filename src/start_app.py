@@ -3,6 +3,9 @@ from flask import Flask,render_template,jsonify,json,request
 from IPython.display import display_html
 from bs4 import BeautifulSoup, SoupStrainer
 
+# Import crawling functins from server.py
+from server.server import *
+
 import sys, threading
 import requests
 import lxml
@@ -27,11 +30,11 @@ def getCouponList():
             # We don't crawl here because we've stored this info in MongoDB for
             # quickest retrieval or possible downtime from crawled sites.
             couponItem = {
-                    'price':ticker['price'],
-                    'drugname':ticker['drugname'],
-                    'storename':ticker['storename'],
-                    'coupon_url':ticker['coupon_url'],
-                    'id': str(ticker['_id'])
+                    'price':coupons['price'],
+                    'drugname':coupons['drugname'],
+                    'storename':coupons['storename'],
+                    'coupon_url':coupons['coupon_url'],
+                    'id': str(coupons['_id'])
             }
 
             couponList.append(couponItem)
@@ -42,17 +45,32 @@ def getCouponList():
 
 @application.route("/submitRX",methods=['POST'])
 def submitRX():
+    print("SubmitRX() Called")
+
     try:
         json_data = request.json['info']
         rxName = json_data['rxName']
 
         # Call CRAWL FUNCTIONS HERE
+        rx_dict = crawl_goodRx(rxName)
 
-        print("Submitting RX "+rxName)
+        for coupons in rx_dict:
 
-        return jsonify(status='OK',message='inserted successfully')
+            # We don't crawl here because we've stored this info in MongoDB for
+            # quickest retrieval or possible downtime from crawled sites.
+            couponItem = {
+                    'price':coupons['price'],
+                    'drugname':coupons['drugname'],
+                    'storename':coupons['storename'],
+                    'coupon_url':coupons['coupon_url'],
+                    'id': str(coupons['_id'])
+            }
+
+            couponList.append(couponItem)
+
     except Exception as e:
-        return jsonify(status='ERROR',message=str(e))
+        return str(e)
+    return json.dumps(couponList)
 
 @application.route('/')
 def showCouponList():
