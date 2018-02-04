@@ -23,13 +23,13 @@ def crawl_goodRx():
     strainer = SoupStrainer('div', {'class': 'store-name '})
     name_soup = BeautifulSoup(plainText, "lxml", parse_only=strainer)
     strainer2 = SoupStrainer('div', {'class': 'pricerow-drugprice'})
-    number_soup = BeautifulSoup(plainText, "lxml", parse_only=strainer2)    
-    
+    number_soup = BeautifulSoup(plainText, "lxml", parse_only=strainer2)
+
     for x in name_soup.find_all(class_ ='store-name'):
         store.append(x.text.strip())
     for x in number_soup.find_all(class_ ='drug-price'):
         discountPrice.append(float(x.text.strip('$')))
-    
+
     dict_ = {}
     for s_name, dPrice in zip(store, discountPrice):
         dict_[s_name] = dPrice
@@ -43,7 +43,7 @@ def crawl_idc():
     plainText = sourceCode.text
     strainer = SoupStrainer('div', {'class': 'my-coupon'})
 
-    
+
 
 if __name__ == "__main__":
     #goodrx = crawl_goodRx()
