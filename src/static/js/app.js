@@ -4,6 +4,8 @@ angular.module('CheepRX', ['ngCookies'])
     $scope.info = {};
     $scope.storename = "";
 
+    $scope.getDrugName = "";
+
         // SHOW DEALS LIST
     $scope.getCouponList = function(){
       $http({
@@ -11,8 +13,8 @@ angular.module('CheepRX', ['ngCookies'])
         url: '/getCouponList',
 
       }).then(function(response) {
-        $scope.storename = response.data;
-        console.log('mm',$scope.storename);
+        $scope.coupons = response.data;
+        console.log('mm',$scope.coupons);
 
           console.log("Load complete");
       }, function(error) {
@@ -27,7 +29,7 @@ angular.module('CheepRX', ['ngCookies'])
         url: '/submitRX',
         data: {info:$scope.info}
       }).then(function(response) {
-
+        $scope.getDrugName = $scope.info;
         $scope.getCouponList();
         $scope.info = {}
         console.log("Added.");
@@ -36,5 +38,5 @@ angular.module('CheepRX', ['ngCookies'])
       });
     }
 
-        $scope.getCouponList();
+      //  $scope.getCouponList();
     })

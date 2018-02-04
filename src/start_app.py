@@ -16,29 +16,19 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
+couponList = []
+
 @application.route("/getCouponList",methods=['POST'])
 def getCouponList():
+    global couponList
+
     try:
         # But we're not using a database
         #
         # coupons = db.Coupons.find()
 
         # Store crawled list in memory
-        couponList = []
-        for coupons in couponList:
-
-            # We don't crawl here because we've stored this info in MongoDB for
-            # quickest retrieval or possible downtime from crawled sites.
-            couponItem = {
-                    'price':coupons['price'],
-                    'drugname':coupons['drugname'],
-                    'storename':coupons['storename'],
-                    'coupon_url':coupons['coupon_url'],
-                    'id': str(coupons['_id'])
-            }
-
-            couponList.append(couponItem)
-            print("Getting coupon list")
+        print("Getting coupon list")
     except Exception as e:
         return str(e)
     return json.dumps(couponList)
@@ -47,6 +37,8 @@ def getCouponList():
 def submitRX():
     print("SubmitRX() Called")
 
+    global couponList
+
     try:
         json_data = request.json['info']
         rxName = json_data['rxName']
@@ -54,23 +46,30 @@ def submitRX():
         # Call CRAWL FUNCTIONS HERE
         rx_dict = crawl_goodRx(rxName)
 
+        #couponList = []
+        del couponList[:]
+        print(couponList)
+
         for coupons in rx_dict:
 
             # We don't crawl here because we've stored this info in MongoDB for
             # quickest retrieval or possible downtime from crawled sites.
             couponItem = {
-                    'price':coupons['price'],
-                    'drugname':coupons['drugname'],
-                    'storename':coupons['storename'],
-                    'coupon_url':coupons['coupon_url'],
-                    'id': str(coupons['_id'])
+                    'price': rx_dict[coupons],
+                    'drugname': rxName,
+                    'storename':coupons
+            #        'coupon_url':coupons['coupon_url'],
+            #        'id': str(coupons['_id'])
             }
 
             couponList.append(couponItem)
 
+        print(couponList)
+        print("OK!")
+
     except Exception as e:
         return str(e)
-    return json.dumps(couponList)
+    return jsonify("status: 'OK'")
 
 @application.route('/')
 def showCouponList():

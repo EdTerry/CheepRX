@@ -87,26 +87,26 @@
 
       <div class="bs-example" data-example-id="panel-without-body-with-table">
           <div class="panel panel-default">
-              <div class="panel-heading" style="overflow:auto;"><div style="float:left;font-weight:bold;">Coupons List</div></div>
+              <div class="panel-heading" style="overflow:auto;"><div style="float:left;font-weight:bold;">Coupons List - {{'{{getDrugName.rxName}}'}}</div></div>
               <table class="table">
                   <thead>
                       <tr>
-                          <th><a ng-href="#" ng-click="orderByField='device'; reverseSort = !reverseSort">Store</a></th>
+                          <th><a ng-href="#" ng-click="orderByField='storename'; reverseSort = !reverseSort">Store</a></th>
                           <th><a ng-href="#" ng-click="orderByField='-1*price'; reverseSort = !reverseSort">Price</a></th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr ng-repeat="coupons in couponList|orderBy:orderByField:reverseSort" ng-class-odd="'odd'" ng-class-even="'even'">
+                      <tr ng-repeat="coupon in coupons|orderBy:orderByField:reverseSort" ng-class-odd="'odd'" ng-class-even="'even'">
 
-                          <div ng-show="coupons.storename != null">
+
                           <!--Clicking ticker name displays modal window with chart-->
                           <td>
-                                  {{'{{coupons.storename}}'}}
+                                  <a ng-href="https://www.goodrx.com/{{'{{coupon.drugname}}'}}?drug-name={{'{{coupon.drugname}}'}}">{{'{{coupon.storename}}'}}</a>
                           </td>
-                          <td>>
-                                  {{'{{coupons.price}}'}}
+                          <td>
+                                  ${{'{{coupon.price}}'}}
                           </td>
-                      </div>
+
                   </tr>
                   </tbody>
               </table>
