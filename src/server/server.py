@@ -7,7 +7,7 @@ discountPrice =[]
 medication ="adderall"
 store =[]
 distance =""
-url=""
+url_idc=""
 url_goodRx = "https://www.goodrx.com/"
 
    
@@ -39,11 +39,9 @@ def crawl_goodRx():
     for x in dict_:
         print ("{} {}".format(x, dict_[x]))
 
-def crawl_internetdcoupons():
+def crawl_idc():
     url = "https://www.internetdrugcoupons.com/" + medication + "-coupon"
     print(url)
-
-
     
 if __name__ == "__main__":
     goodrx = crawl_goodRx()
