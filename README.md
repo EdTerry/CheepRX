@@ -27,7 +27,8 @@ After you clone repo:
 ### Contributing
 
 go ahead and pull and help us out anyway you see fit
-but dont do too much crawling on the one site we currently have working.
+but dont do any crawling with GoodRx as it is against the TOS, ask for API instead.
+Thanks for the interests.
 
 ### Authors / Hack Team
 * **Edward Terry** - *Initial work* - [Edward](https://github.com/EdTerry)
