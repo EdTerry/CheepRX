@@ -35,7 +35,7 @@ Thanks for the interests.
 * **Shafeeque Khan** - *Initial work* - [Shafeeque](https://github.com/skhan064)
 * **Mark Cameron** - *Initial work* - [Mark](https://github.com/markcam73)
 * **Jeffrey Antoine** - *Initial work* - [Jeff](https://github.com/JeffAntoine)
-* **Nicolas** - 
+* **Nickolas Jimenez** - *Initial work* -  [Sannicko](https://github.com/sannicko)
 * **Henly Garcia** -
 
 check out list of contributors for others. (currently none)
